@@ -12,28 +12,28 @@ This Project is done as part of Udacity Java developer course. The purpose of th
 git clone https://github.com/rajashekar/vehicles-api-backend.git
 ```
 
-Step 1: Run Eureka server
+Step 1: In one command line terminal and run Eureka server
 ```
 cd eureka
 mvn clean package
 java -jar target/pricing-service-0.0.1-SNAPSHOT.jar
 ```
 
-Step 2: Run boogle-maps service
+Step 2: Open another command line terminal and run boogle-maps service
 ```
-cd ../boogle-maps
+cd boogle-maps
 mvn clean package
 java -jar target/boogle-maps-0.0.1-SNAPSHOT.jar
 ```
 
-Step 3: Run pricing service 
+Step 3: Open another command line terminal and run pricing service 
 ```
 cd ../pricing-service
 mvn clean package
 java -jar target/pricing-service-0.0.1-SNAPSHOT.jar
 ```
 
-Step 4: Run Vehicle service
+Step 4: Open another command line terminal and run Vehicle service
 ```
 cd ../vehicles-api
 mvn clean package
@@ -72,11 +72,11 @@ curl localhost:8080/cars \
 ```
 ### GET all vehicles
 ```
-curl localhost:8080/dogs
+curl localhost:8080/cars
 ```
 ### GET vehicle by id
 ```
-curl localhost:8080/dogs/1
+curl localhost:8080/cars/1
 ```
 ### Edit (PUT) vehicle by id
 ```
