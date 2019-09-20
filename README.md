@@ -1,16 +1,119 @@
-# ND035-P02-VehiclesAPI-Project
+# VehiclesAPI Project
 
-Project repository for JavaND Project 2, where students implement a Vehicles API using Java and Spring Boot that can communicate with separate location and pricing services.
+This Project is done as part of Udacity Java developer course. The purpose of the project is to understand the concepts of Spring boot application, microservices, consuming services, mvc unit testing and documentation using swagger api. 
+
+## Pre-requisites
+ - Java v11.
+ - Maven 3.6.1 - https://maven.apache.org/download.cgi
 
 ## Instructions
 
-Check each component to see its details and instructions. Note that all three applications
-should be running at once for full operation. Further instructions are available in the classroom.
+```
+git clone https://github.com/rajashekar/vehicles-api-backend.git
+```
 
+Step 1: Run Eureka server
+```
+cd eureka
+mvn clean package
+java -jar target/pricing-service-0.0.1-SNAPSHOT.jar
+```
+
+Step 2: Run boogle-maps service
+```
+cd ../boogle-maps
+mvn clean package
+java -jar target/boogle-maps-0.0.1-SNAPSHOT.jar
+```
+
+Step 3: Run pricing service 
+```
+cd ../pricing-service
+mvn clean package
+java -jar target/pricing-service-0.0.1-SNAPSHOT.jar
+```
+
+Step 4: Run Vehicle service
+```
+cd ../vehicles-api
+mvn clean package
+java -jar target/vehicles-api-0.0.1-SNAPSHOT.jar
+```
+
+Visit - http://localhost:8080/swagger-ui.html#/ to find the vehicle api documentation
+
+## Examples
+### CREATE vehicle
+```
+curl localhost:8080/cars \
+    -H 'Content-type: application/json' \
+    -d '{
+        "condition": "NEW",
+        "details": {
+            "body": "sedan",
+            "engine": "3.6L V6",
+            "externalColor": "white",
+            "fuelType": "Gasoline",
+            "manufacturer": {
+                "code": 101,
+                "name": "Chevrolet"
+            },
+            "mileage": 32280,
+            "model": "Impala",
+            "modelYear": 2018,
+            "numberOfDoors": 4,
+            "productionYear": 2018
+        },
+        "location": {
+            "lat": 40.73061,
+            "lon": -73.935242
+        }
+    }'
+```
+### GET all vehicles
+```
+curl localhost:8080/dogs
+```
+### GET vehicle by id
+```
+curl localhost:8080/dogs/1
+```
+### Edit (PUT) vehicle by id
+```
+curl -X PUT localhost:8080/cars/1 \
+    -H 'Content-type: application/json' \
+    -d '{
+        "condition": "NEW",
+        "details": {
+            "body": "sedan",
+            "engine": "3.6L V12",
+            "externalColor": "black",
+            "fuelType": "Gasoline",
+            "manufacturer": {
+                "code": 101,
+                "name": "Chevrolet"
+            },
+            "mileage": 32280,
+            "model": "Impala",
+            "modelYear": 2018,
+            "numberOfDoors": 4,
+            "productionYear": 2018
+        },
+        "location": {
+            "lat": 40.73061,
+            "lon": -73.935242
+        }
+    }'
+```
+### DELETE vehicle by id
+```
+curl -X DELETE localhost:8080/cars/1
+```
+
+For individual api documentation please refer below - 
 - [Vehicles API](vehicles-api/README.md)
 - [Pricing Service](pricing-service/README.md)
 - [Boogle Maps](boogle-maps/README.md)
 
-## Dependencies
-
-The project requires the use of Maven and Spring Boot, along with Java v11.
+## Contributing
+This repository is done as part of Udacity Java developer. Therefore, most likely will not accept any pull requests.
