@@ -1,7 +1,9 @@
 package com.udacity.vehicles;
 
+import com.netflix.discovery.EurekaClient;
 import com.udacity.vehicles.domain.manufacturer.Manufacturer;
 import com.udacity.vehicles.domain.manufacturer.ManufacturerRepository;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -21,6 +23,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 @EnableEurekaClient
 @EnableJpaAuditing
 public class VehiclesApiApplication {
+
+    private final EurekaClient discoveryClient;
+
+    public VehiclesApiApplication(EurekaClient discoveryClient) {
+        this.discoveryClient = discoveryClient;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(VehiclesApiApplication.class, args);
@@ -55,8 +63,9 @@ public class VehiclesApiApplication {
      * @return created maps endpoint
      */
     @Bean(name = "maps")
-    public WebClient webClientMaps(@Value("${maps.endpoint}") String endpoint) {
-        return WebClient.create(endpoint);
+    public WebClient webClientMaps(@Value("${maps.service}") String endpoint) {
+        String mapsEndPoint = discoveryClient.getNextServerFromEureka(endpoint, false).getHomePageUrl();
+        return WebClient.create(mapsEndPoint);
     }
 
     /**
@@ -66,8 +75,9 @@ public class VehiclesApiApplication {
      * @return created pricing endpoint
      */
     @Bean(name = "pricing")
-    public WebClient webClientPricing(@Value("${pricing.endpoint}") String endpoint) {
-        return WebClient.create(endpoint);
+    public WebClient webClientPricing(@Value("${pricing.service}") String endpoint) {
+        String priceEndPoint = discoveryClient.getNextServerFromEureka(endpoint, false).getHomePageUrl();
+        return WebClient.create(priceEndPoint);
     }
 
 }
