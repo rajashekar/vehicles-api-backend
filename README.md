@@ -19,23 +19,23 @@ mvn clean package
 java -jar target/pricing-service-0.0.1-SNAPSHOT.jar
 ```
 
-Step 2: Open another command line terminal and run boogle-maps service
+Step 2: Open another command line terminal, go to project folder and run boogle-maps service
 ```
 cd boogle-maps
 mvn clean package
 java -jar target/boogle-maps-0.0.1-SNAPSHOT.jar
 ```
 
-Step 3: Open another command line terminal and run pricing service 
+Step 3: Open another command line terminal, go to project folder and run pricing service 
 ```
-cd ../pricing-service
+cd pricing-service
 mvn clean package
 java -jar target/pricing-service-0.0.1-SNAPSHOT.jar
 ```
 
-Step 4: Open another command line terminal and run Vehicle service
+Step 4: Open another command line terminal, go to project folder and run Vehicle service
 ```
-cd ../vehicles-api
+cd vehicles-api
 mvn clean package
 java -jar target/vehicles-api-0.0.1-SNAPSHOT.jar
 ```
