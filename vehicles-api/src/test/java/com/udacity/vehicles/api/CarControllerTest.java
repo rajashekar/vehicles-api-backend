@@ -4,8 +4,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.net.URI;
@@ -32,6 +32,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 /**
  * Implements testing of the CarController class.
@@ -79,7 +80,7 @@ public class CarControllerTest {
         Car car = getCar();
         mvc.perform(post(new URI("/cars")).content(json.write(car).getJson())
                 .contentType(MediaType.APPLICATION_JSON_UTF8).accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated()).andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1));
     }
 
     /**
@@ -92,7 +93,8 @@ public class CarControllerTest {
         Car car = getCar();
         mvc.perform(get(new URI("/cars")).content(json.write(car).getJson())
                 .contentType(MediaType.APPLICATION_JSON_UTF8).accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.carList[*].id").value(1));
 
     }
 
@@ -106,7 +108,7 @@ public class CarControllerTest {
         Car car = getCar();
         mvc.perform(get(new URI("/cars/1")).content(json.write(car).getJson())
                 .contentType(MediaType.APPLICATION_JSON_UTF8).accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1));
 
     }
 
@@ -120,7 +122,7 @@ public class CarControllerTest {
         Car car = getCar();
         mvc.perform(put(new URI("/cars/1")).content(json.write(car).getJson())
                 .contentType(MediaType.APPLICATION_JSON_UTF8).accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.jsonPath("$.location").isNotEmpty());
     }
 
     /**
