@@ -1,6 +1,6 @@
 # VehiclesAPI Project
 
-This Project is done as part of Udacity Java developer course. The purpose of the project is to understand the concepts of Spring boot application, microservices, consuming services, mvc unit testing and documentation using swagger api. 
+The purpose of the project is to understand the concepts of Spring boot application, microservices, consuming services, mvc unit testing and documentation using swagger api. 
 
 ## Pre-requisites
  - Java v11.
